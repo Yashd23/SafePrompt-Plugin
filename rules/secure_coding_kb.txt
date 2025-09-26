@@ -1,0 +1,97 @@
+# Secure Coding Knowledge Base
+
+## 1. Hardcoded Secrets
+Issue:
+Storing secrets such as API keys, database passwords, or tokens directly in source code.
+
+Risks:
+- Exposure through version control (e.g., GitHub leaks).
+- Secrets may be exploited if code is shared, even internally.
+
+Secure Practices:
+- Use environment variables (process.env in Node.js, os.environ in Python).
+- Store secrets in a secrets manager (e.g., HashiCorp Vault, AWS Secrets Manager, Azure Key Vault).
+- Never log or print secrets.
+- Use configuration files excluded from version control (.env with .gitignore).
+
+Bad Example (JavaScript):
+const apiKey = "abcd1234"; // ❌ Hardcoded secret
+
+Good Example:
+const apiKey = process.env.API_KEY; // ✅ Retrieved securely
+
+
+## 2. Missing Authorization Checks
+Issue:
+Functions, endpoints, or controllers lack role-based or access control validation.
+
+Risks:
+- Unauthorized users may perform privileged actions.
+- Leads to broken access control (OWASP Top 10 A01:2021).
+
+Secure Practices:
+- Enforce role-based access control (RBAC) or attribute-based access control (ABAC).
+- Validate JWTs, sessions, or tokens at every endpoint.
+- Apply “least privilege principle” — users should only have the minimum permissions required.
+- Centralize authorization checks (middleware/interceptors).
+
+Bad Example (JavaScript / Express):
+app.get('/admin/data', (req, res) => {
+  res.send("Sensitive admin data");
+}); // ❌ No auth check
+
+Good Example:
+app.get('/admin/data', authorizeRole('admin'), (req, res) => {
+  res.send("Sensitive admin data");
+}); // ✅ Role-based validation
+
+
+## 3. Outdated or Vulnerable Libraries
+Issue:
+Using old or vulnerable dependencies (e.g., outdated package.json or requirements.txt).
+
+Risks:
+- Known CVEs (Common Vulnerabilities and Exposures) may allow exploits.
+- Increases attack surface.
+
+Secure Practices:
+- Run "npm audit", "pip-audit", or dependency scanners regularly.
+- Pin dependencies to specific safe versions.
+- Use Dependabot or Renovate for automatic dependency updates.
+- Check advisories from package managers or CVE databases.
+
+Bad Example (package.json):
+"dependencies": {
+  "express": "3.0.0" // ❌ Very old, has known vulnerabilities
+}
+
+Good Example:
+"dependencies": {
+  "express": "^4.19.0" // ✅ Latest stable secure version
+}
+
+
+## 4. Additional Secure Coding Guidelines
+
+### Input Validation
+- Always validate and sanitize user input.
+- Prevent SQL injection with parameterized queries.
+- Use libraries like validator.js.
+
+### Secure Defaults
+- Use HTTPS (TLS).
+- Avoid insecure defaults in configurations (e.g., DEBUG=True in production).
+
+### Logging and Monitoring
+- Log failed login attempts, unusual behavior.
+- Never log sensitive data (tokens, passwords).
+
+### Error Handling
+- Avoid leaking stack traces in production.
+- Return generic error messages to users.
+
+
+## References
+- OWASP Top 10: https://owasp.org/Top10/
+- CWE (Common Weakness Enumeration): https://cwe.mitre.org/
+- NIST Secure Software Development Framework: https://csrc.nist.gov/publications/detail/white-paper/2020/04/23/ssdf/final

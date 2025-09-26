@@ -1,0 +1,47 @@
+{
+    "name": "test-vulnerable-package",
+    "version": "1.0.0",
+    "description": "Test package with security vulnerabilities for SafePrompt testing",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "jest"
+    },
+    "dependencies": {
+        "lodash": "4.17.5",
+        "axios": "0.21.0",
+        "moment": "2.29.0",
+        "express": "4.16.0",
+        "jquery": "3.5.0",
+        "react": "17.0.0",
+        "vue": "2.6.10",
+        "angular": "13.0.0",
+        "typescript": "^4.0.0",
+        "eslint": "^8.0.0",
+        "prettier": "^2.0.0",
+        "@types/node": "^16.0.0",
+        "api_key": "sk-1234567890abcdef1234567890abcdef",
+        "secret_token": "secret_value_here_12345",
+        "database_password": "db_pass_123",
+        "jwt_secret": "jwt_secret_key_here_very_long_string_123456789",
+        "stripe_key": "pk_test_1234567890abcdef1234567890abcdef",
+        "openai_key": "sk-1234567890abcdef1234567890abcdef1234567890",
+        "aws_secret": "AKIAIOSFODNN7EXAMPLE",
+        "github_token": "ghp_1234567890abcdef1234567890abcdef12345678",
+        "npm_token": "npm_1234567890abcdef1234567890abcdef12345678",
+        "old_package": "0.0.0",
+        "beta_package": "0.1.5",
+        "unstable_package": "0.2.3"
+    },
+    "devDependencies": {
+        "jest": "^27.0.0",
+        "nodemon": "^2.0.0"
+    },
+    "keywords": [
+        "test",
+        "security",
+        "vulnerabilities"
+    ],
+    "author": "Test Author",
+    "license": "MIT"
+}
